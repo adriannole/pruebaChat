@@ -21,8 +21,7 @@ from langchain.llms import OpenAI
 from langchain.callbacks import get_openai_callback  
 # Importa el módulo langchain
 import langchain
-
-# SE INTALO ESTAS NUEVAS DEPENDENCIAS 
+# Se instalo estas nuevos modulos 
 from bs4 import BeautifulSoup
 from datetime import datetime
 
@@ -38,8 +37,8 @@ def process_text(text):
   # NOTA: SI REDUCIMOS LOS CHUNCK SIZE POR CARGAR ARCHIVOS MAS GRANDES DONDE USAN MAYOR TOKENS TENDREMOS RESPUESTAS MENOS PRECISAS O ´NO ENCUENTRE 
   text_splitter = CharacterTextSplitter(
     separator="\n",
-    chunk_size=1000,
-    chunk_overlap=200,
+    chunk_size=500,
+    chunk_overlap=300,
     length_function=len
   )
 
@@ -54,7 +53,7 @@ def process_text(text):
 
 # Función principal de la aplicación
 def main():
-  st.title("EVAIN CHAT")  # Establece el título de la aplicación
+  st.title("NOLEVAIN CHAT")  # Establece el título de la aplicación
 
   html = st.file_uploader("Sube tu archivo HTML", type="html")  # Crea un cargador de archivos para subir el archivo HTML
   rss = st.file_uploader("Sube tu archivo RSS", type="rss")  # Crea un cargador de archivos para subir el archivo RSS
@@ -68,9 +67,6 @@ def main():
       # Almacena el texto del archivo en una variable
       text += soup.get_text()
 
-
-
-  
   if text:
     # Crea un objeto de base de conocimientos a partir del texto del HTML
     knowledgeBase = process_text(text)
